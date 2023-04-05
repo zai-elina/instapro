@@ -16,7 +16,7 @@ https://github.com/GlebkaF/webdev-hw-api/blob/main/pages/api/v1/%5Bkey%5D/instap
 
 Давайте вместе посмотрим что у нее получилось
 
-<iframe width="640" height="360" src="https://www.loom.com/embed/71ab70b2c9464b74857164ebc7dd9e3d" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+https://www.loom.com/embed/71ab70b2c9464b74857164ebc7dd9e3d
 
 ## Задача
 
