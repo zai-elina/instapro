@@ -27,7 +27,7 @@ export function renderPostsPageComponent({ appEl }) {
                         <img src="./assets/images/like-active.svg">
                       </button>
                       <p class="post-likes-text">
-                        Нравится: <strong>Варварва Н.</strong> и <strong>еще 2</strong>
+                        Нравится: <strong>2</strong>
                       </p>
                     </div>
                     <p class="post-text">
@@ -53,7 +53,7 @@ export function renderPostsPageComponent({ appEl }) {
                         <img src="./assets/images/like-not-active.svg">
                       </button>
                       <p class="post-likes-text">
-                        Нравится: <strong>Иван Иваныч</strong> и <strong>еще 33</strong>
+                        Нравится: <strong>35</strong>
                       </p>
                     </div>
                     <p class="post-text">
