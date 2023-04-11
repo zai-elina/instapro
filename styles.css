@@ -93,10 +93,6 @@
   cursor: pointer;
 }
 
-.-active {
-  background-color: red;
-}
-
 .user-name {
   font-weight: 500;
 }
