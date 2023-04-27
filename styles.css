@@ -1,6 +1,10 @@
 .page-container {
   padding: 0 20px;
 }
+.center{
+  padding-left: calc(50% - 230px);
+  padding-right: calc(50% - 230px);
+}
 
 .page-header {
   display: flex;
@@ -39,8 +43,6 @@
 }
 
 .posts {
-  padding-left: calc(50% - 230px);
-  padding-right: calc(50% - 230px);
   display: flex;
   flex-direction: column;
   list-style: none;
@@ -150,9 +152,10 @@
 }
 
 .form {
+  margin:0 auto;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 30%;
 }
 
 .form-title {

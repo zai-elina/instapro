@@ -160,3 +160,6 @@ strong {
     height: 32px;
   }
 }
+.error{
+  background-color: #FF6347;
+}

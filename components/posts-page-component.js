@@ -54,7 +54,7 @@ export function renderPostsPageComponent({ appEl }) {
   const appHtml = `
               <div class="page-container">
                 <div class="header-container"></div>
-                <ul class="posts">
+                <ul class="posts center">
                   ${postsHtml}
                 </ul>
               </div>`;
