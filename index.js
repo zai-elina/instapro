@@ -137,7 +137,8 @@ const renderApp = () => {
     // TODO: реализовать страницу фотографию пользвателя
     return renderUserPostsPageComponent({
       appEl,
-      token: getToken()
+      token: getToken(),
+      user:  getUserFromLocalStorage()
     });
   }
 };

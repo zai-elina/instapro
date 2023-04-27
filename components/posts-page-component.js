@@ -1,7 +1,11 @@
+import { formatDistance } from "date-fns";
+import { ru } from 'date-fns/locale'
 import { USER_POSTS_PAGE, POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, userPosts, goToPage } from "../index.js";
-import { addLikeToPost, removeLikeToPost } from "../api.js";
+import { addLikeToPost, removeLikeToPost, deletePost } from "../api.js";
+
+
 
 function showLikes(likes) {
   if (likes.length === 0) {
@@ -13,7 +17,7 @@ function showLikes(likes) {
   return `${likes[0].name} и ещё ${likes.length - 1}`;
 }
 
-function likePost(token, page,data) {
+function likePost(token, page, data) {
   const likeButtons = document.querySelectorAll(".like-button");
 
   for (const likeButton of likeButtons) {
@@ -26,7 +30,7 @@ function likePost(token, page,data) {
           token,
         })
           .then(() => {
-            goToPage(page,data);
+            goToPage(page, data);
           })
           .catch((error) => {
             alert(error.message);
@@ -37,7 +41,7 @@ function likePost(token, page,data) {
           token,
         })
           .then(() => {
-            goToPage(page,data);
+            goToPage(page, data);
           })
           .catch((error) => {
             alert(error.message);
@@ -87,7 +91,7 @@ export function renderPostsPageComponent({ appEl, token }) {
         ${item.description}
       </p>
       <p class="post-date">
-        ${item.createdAt}
+        ${formatDistance(new Date(item.createdAt),Date.now(),{locale: ru})}
       </p>
     </li>
     `;
@@ -118,7 +122,7 @@ export function renderPostsPageComponent({ appEl, token }) {
   likePost(token, page, {});
 }
 
-export function renderUserPostsPageComponent({ appEl, token }) {
+export function renderUserPostsPageComponent({ appEl, token, user }) {
   let userPostsHtml = userPosts
     .map((item) => {
       return `  
@@ -128,8 +132,8 @@ export function renderUserPostsPageComponent({ appEl, token }) {
       </div>
       <div class="post-likes">
         <button data-post-id="${item.id}" data-liked="${
-          item.isLiked
-        }" class="like-button">
+        item.isLiked
+      }" class="like-button">
         ${
           item.isLiked
             ? `<img src="./assets/images/like-active.svg">`
@@ -145,8 +149,14 @@ export function renderUserPostsPageComponent({ appEl, token }) {
         ${item.description}
       </p>
       <p class="post-date">
-        ${item.createdAt}
+        ${formatDistance(new Date(item.createdAt),Date.now(),{locale: ru})}
+        ${
+          user?._id == item.user.id
+            ? `<button class="delete-button"  data-post-id="${item.id}">Удалить</button>`
+            : ``
+        }
       </p>
+      
     </li>
     `;
     })
@@ -154,7 +164,6 @@ export function renderUserPostsPageComponent({ appEl, token }) {
 
   let userName = userPosts[0]?.user.name;
   let userImage = userPosts[0]?.user.imageUrl;
-  console.log(userPosts);
   const appHtml = `
               <div class="page-container">
                 <div class="header-container"></div>
@@ -177,5 +186,22 @@ export function renderUserPostsPageComponent({ appEl, token }) {
   let data = {
     userId: userPosts[0]?.user.id,
   };
-  likePost(token, page,data);
+  likePost(token, page, data);
+
+  let deleteButtons = document.querySelectorAll(".delete-button");
+  if (deleteButtons) {
+    for (const deleteButton of deleteButtons) {
+      let id = deleteButton.dataset.postId;
+      deleteButton.addEventListener("click", () => {
+        deletePost({
+          id,
+          token,
+        })
+          .then(() => {
+            alert("Пост успешно удален");
+            goToPage(page, data);
+          });
+      });
+    }
+  }
 }

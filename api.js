@@ -87,6 +87,17 @@ export function addPost({ description, imageUrl, token }) {
   });
 }
 
+export function deletePost({ id, token }) {
+  return fetch(postsHost + `/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: token,
+    },
+  }).then((response) => {
+    return response.json();
+  });
+}
+
 export function getUserPosts({ id, token}) {
   return fetch(postsHost + `/user-posts/${id}`, {
     method: "GET",
