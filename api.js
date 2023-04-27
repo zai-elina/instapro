@@ -87,9 +87,12 @@ export function addPost({ description, imageUrl, token }) {
   });
 }
 
-export function getUserPosts({ id}) {
+export function getUserPosts({ id, token}) {
   return fetch(postsHost + `/user-posts/${id}`, {
     method: "GET",
+    headers: {
+      Authorization: token,
+    },
   })
     .then((response) => {
       return response.json();
@@ -97,4 +100,35 @@ export function getUserPosts({ id}) {
     .then((data) => {
       return data.posts;
     });
+}
+
+
+export function addLikeToPost({id, token}) {
+  return fetch(postsHost+`/${id}/like`,{
+    method: "POST",
+    headers: {
+      Authorization: token,
+    },
+  })
+  .then((response) => {
+    if (response.status == 401){
+      throw new Error("Чтобы поставить лайк, необходимо авторизоваться");
+    }
+    return response.json();
+  });
+}
+
+export function removeLikeToPost({id, token}) {
+  return fetch(postsHost+`/${id}/dislike`,{
+    method: "POST",
+    headers: {
+      Authorization: token,
+    },
+  })
+  .then((response) => {
+    if (response.status == 401){
+      throw new Error("Чтобы убрать лайк, необходимо авторизоваться");
+    }
+    return response.json();
+  });
 }

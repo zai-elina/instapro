@@ -75,7 +75,7 @@ export const goToPage = (newPage, data) => {
       console.log("Открываю страницу пользователя: ", data.userId);
       let id = data.userId;
 
-      return getUserPosts({ id })
+      return getUserPosts({ id, token: getToken() })
       .then((data) => {
         page = USER_POSTS_PAGE;
         userPosts = data;
@@ -129,13 +129,15 @@ const renderApp = () => {
   if (page === POSTS_PAGE) {
     return renderPostsPageComponent({
       appEl,
+      token: getToken()
     });
   }
 
   if (page === USER_POSTS_PAGE) {
     // TODO: реализовать страницу фотографию пользвателя
     return renderUserPostsPageComponent({
-      appEl
+      appEl,
+      token: getToken()
     });
   }
 };
