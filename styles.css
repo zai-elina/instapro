@@ -33,13 +33,16 @@
   font-weight: 500;
   cursor: pointer;
 }
+.header-item{
+  display: flex;
+  gap:30px;
+}
 .add-post-sign:hover{
   animation: addButton 2s ease 0s 1 normal forwards;
 }
-
 .logout-button {
-  width: 130px;
   text-align: right;
+  padding-right: 10px;
 }
 
 .posts {
@@ -152,8 +155,9 @@
   display: inline-block;
   margin-left: 20px;
   background-color: #FA8072;
-  padding: 10px 13px 13px;
-  font-size: 18px;
+  margin-top: 10px;
+  padding: 5px;
+  font-size: 15px;
   line-height: 22px;
   border-radius: 5px;
   color: #ffffff;
@@ -173,6 +177,18 @@
   background-image: url("data:image/svg+xml,%3Csvg id='Layer_1' data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 122.88 122.88'%3E%3Ctitle%3Eadd%3C/title%3E%3Cpath d='M61.44,0A61.46,61.46,0,1,1,18,18,61.25,61.25,0,0,1,61.44,0ZM88.6,56.82v9.24a4,4,0,0,1-4,4H70V84.62a4,4,0,0,1-4,4H56.82a4,4,0,0,1-4-4V70H38.26a4,4,0,0,1-4-4V56.82a4,4,0,0,1,4-4H52.84V38.26a4,4,0,0,1,4-4h9.24a4,4,0,0,1,4,4V52.84H84.62a4,4,0,0,1,4,4Zm8.83-31.37a50.92,50.92,0,1,0,14.9,36,50.78,50.78,0,0,0-14.9-36Z'/%3E%3C/svg%3E");
   height: 30px;
   width: 30px;
+}
+
+.profile {
+  background-image: url("assets/images/profile.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+}
+.profile:hover{
+  animation: addButton 2s ease 0s 1 normal forwards;
 }
 
 .form {
@@ -233,6 +249,7 @@
 @media (max-width:1140px) {
   .posts-user{
     grid-template-columns: repeat(1,1fr);
+    padding: 0;
   }
   
 }

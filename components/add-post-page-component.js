@@ -33,7 +33,6 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
       element: document.querySelector(".header-container"),
     });
 
-
     const descriptionInput = appEl.querySelector(".textarea");
 
     renderUploadImageComponent({
@@ -49,12 +48,16 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
         descriptionInput.classList.add("error");
         return;
       }
-      if(!imageUrl){
+      if (!imageUrl) {
         alert("Выберите фото");
         return;
       }
       onAddPostClick({
-        description: descriptionInput.value,
+        description: descriptionInput.value
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;"),
         imageUrl,
       });
     });
