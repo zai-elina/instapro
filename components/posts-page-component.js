@@ -1,11 +1,9 @@
 import { formatDistance } from "date-fns";
-import { ru } from 'date-fns/locale'
+import { ru } from "date-fns/locale";
 import { USER_POSTS_PAGE, POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, userPosts, goToPage } from "../index.js";
 import { addLikeToPost, removeLikeToPost, deletePost } from "../api.js";
-
-
 
 function showLikes(likes) {
   if (likes.length === 0) {
@@ -55,11 +53,6 @@ export function renderPostsPageComponent({ appEl, token }) {
   // TODO: реализовать рендер постов из api
   console.log("Актуальный список постов:", posts);
 
-  /**
-   * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
-   * можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
-   */
-
   let postsHtml = posts
     .map((item) => {
       return `
@@ -91,7 +84,7 @@ export function renderPostsPageComponent({ appEl, token }) {
         ${item.description}
       </p>
       <p class="post-date">
-        ${formatDistance(new Date(item.createdAt),Date.now(),{locale: ru})}
+        ${formatDistance(new Date(item.createdAt), Date.now(), { locale: ru })}
       </p>
     </li>
     `;
@@ -119,7 +112,7 @@ export function renderPostsPageComponent({ appEl, token }) {
     });
   }
   const page = POSTS_PAGE;
-  likePost(token, page, {});
+  likePost(token, page, { notIsLoad: true });
 }
 
 export function renderUserPostsPageComponent({ appEl, token, user }) {
@@ -149,7 +142,7 @@ export function renderUserPostsPageComponent({ appEl, token, user }) {
         ${item.description}
       </p>
       <p class="post-date">
-        ${formatDistance(new Date(item.createdAt),Date.now(),{locale: ru})}
+        ${formatDistance(new Date(item.createdAt), Date.now(), { locale: ru })}
         ${
           user?._id == item.user.id
             ? `<button class="delete-button"  data-post-id="${item.id}">Удалить</button>`
@@ -185,6 +178,7 @@ export function renderUserPostsPageComponent({ appEl, token, user }) {
   const page = USER_POSTS_PAGE;
   let data = {
     userId: userPosts[0]?.user.id,
+    notIsLoad: true,
   };
   likePost(token, page, data);
 
@@ -196,11 +190,10 @@ export function renderUserPostsPageComponent({ appEl, token, user }) {
         deletePost({
           id,
           token,
-        })
-          .then(() => {
-            alert("Пост успешно удален");
-            goToPage(page, data);
-          });
+        }).then(() => {
+          alert("Пост успешно удален");
+          goToPage(page, data);
+        });
       });
     }
   }

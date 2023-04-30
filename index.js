@@ -8,7 +8,10 @@ import {
   POSTS_PAGE,
   USER_POSTS_PAGE,
 } from "./routes.js";
-import { renderPostsPageComponent,renderUserPostsPageComponent } from "./components/posts-page-component.js";
+import {
+  renderPostsPageComponent,
+  renderUserPostsPageComponent,
+} from "./components/posts-page-component.js";
 import { renderLoadingPageComponent } from "./components/loading-page-component.js";
 import {
   getUserFromLocalStorage,
@@ -53,8 +56,10 @@ export const goToPage = (newPage, data) => {
     }
 
     if (newPage === POSTS_PAGE) {
-      page = LOADING_PAGE;
-      renderApp();
+      if (!data?.notIsLoad) {
+        page = LOADING_PAGE;
+        renderApp();
+      }
 
       return getPosts({ token: getToken() })
         .then((newPosts) => {
@@ -69,14 +74,15 @@ export const goToPage = (newPage, data) => {
     }
 
     if (newPage === USER_POSTS_PAGE) {
-      page = LOADING_PAGE;
-      renderApp();
+      if (!data?.notIsLoad) {
+        page = LOADING_PAGE;
+        renderApp();
+      }
 
       console.log("Открываю страницу пользователя: ", data.userId);
       let id = data.userId;
 
-      return getUserPosts({ id, token: getToken() })
-      .then((data) => {
+      return getUserPosts({ id, token: getToken() }).then((data) => {
         page = USER_POSTS_PAGE;
         userPosts = data;
         renderApp();
@@ -129,7 +135,7 @@ const renderApp = () => {
   if (page === POSTS_PAGE) {
     return renderPostsPageComponent({
       appEl,
-      token: getToken()
+      token: getToken(),
     });
   }
 
@@ -138,7 +144,7 @@ const renderApp = () => {
     return renderUserPostsPageComponent({
       appEl,
       token: getToken(),
-      user:  getUserFromLocalStorage()
+      user: getUserFromLocalStorage(),
     });
   }
 };
